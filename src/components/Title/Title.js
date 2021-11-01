@@ -1,8 +1,15 @@
 import React from "react";
-import "./Title.css";
 
-const Title = ({text}) => {
-  return <h1 className="primary text-2xl">{text}</h1>;
+const Title = ({ children, main = false, bold = false }) => {
+  return (
+    <h1
+      className={`font-primary  ${main ? "md:text-7xl text-5xl" : "text-2xl"} ${
+        bold ? "font-bold" : "font-normal"
+      }`}
+    >
+      {children}
+    </h1>
+  );
 };
 
 export default Title;

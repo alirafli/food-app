@@ -7,6 +7,9 @@ module.exports = {
         primary: "#FECC4C",
         ternary: "#FE724C",
         ternary2: "#D64822"
+      },
+      fontFamily: {
+        primary: ["Playfair Display, serif"]
       }
     },
   },
