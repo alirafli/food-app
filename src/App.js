@@ -1,10 +1,17 @@
-import React from 'react'
-const App = () => {
-  return (
-    <div>
-    <h1>ini apps</h1>
-    </div>
-  )
-}
+import React,{useEffect} from "react";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import Aos from "aos";
+import "aos/dist/aos.css"
 
-export default App
+const App = () => {
+  useEffect(() => {
+    Aos.init({ duration: 1000});
+  }, [])
+  return (
+    <div className="px-3">
+      <LandingPage />
+    </div>
+  );
+};
+
+export default App;

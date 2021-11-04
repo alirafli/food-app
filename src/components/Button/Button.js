@@ -23,12 +23,12 @@ const Button = ({
   return (
     <button
       className={`
-        ${secondary ? "border-4 border-gray-800 text-gray-800 hover:border-black hover:text-black"
+        ${secondary ? "border-4 border-gray-800 text-gray-800 hover:border-black hover:text-black py-1 px-6"
           : `${ternary ? "bg-ternary hover:bg-ternary2 text-white"
-              : "bg-primary hover:bg-yellow-400"}` }
+              : "bg-primary hover:bg-yellow-400 py-3 px-5"}` }
         ${bold && "font-semibold"}
         ${fullWidht && "w-full"}
-        flex items-center justify-between shadow-xl rounded-full py-2 px-6 transition md:text-lg text-sm `}
+        flex items-center justify-between shadow-xl rounded-full transition md:text-lg text-sm`}
       onClick={onClick}
     >
       {text} {arrowIcon()}

@@ -12,9 +12,16 @@ module.exports = {
         primary: ["Playfair Display, serif"]
       }
     },
+    zIndex: {
+        '-1': -1
+    },
+    animation: {
+      'spin-slow': 'bounce 3s linear',
+     },
   },
   variants: {
     extend: {},
+
   },
   plugins: [],
 }
