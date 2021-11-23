@@ -8,20 +8,24 @@ export const SidebarData = [
     title: 'Search',
     path: '/searchpage',
     icon: <ImIcons.ImSearch/>,
+    isActive: true
   },
   {
     title: 'Liked Posts',
-    path: '/maintenance',
+    path: '/liked',
     icon: <FaIcons.FaRegHeart />,
+    isActive: false
   },
   {
     title: 'Add Post',
-    path: '/maintenance',
+    path: '/addresep',
     icon: <IoIcons.IoMdAddCircleOutline/>,
+    isActive: false
   },
   {
     title: 'Settings',
     path: '/maintenance',
     icon: <AiIcons.AiOutlineSetting />,
+    isActive: false
   },
 ]

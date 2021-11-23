@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/nav-logo.png";
 import ActiveLogo from "../../assets/nav-logo-active.png";
 import { SidebarData } from "./SidebarData";
@@ -33,14 +33,16 @@ const Navbar = () => {
             </li>
             {SidebarData.map((item, index) => {
               return (
-                <li
+                <NavLink
+                  to={item.path}
                   key={index}
                   className="mb-8 transform scale-75 flex justify-center hover:bg-primary rounded-lg py-2 hover:text-white transition-colors duration-300"
+                  activeClassName="bg-primary text-white"
                 >
-                  <Link to={item.path}>
+                  <div>
                     <div className="transform scale-150 ">{item.icon}</div>
-                  </Link>
-                </li>
+                  </div>
+                </NavLink>
               );
             })}
             <li className="flex mt-36 items-center pl-3">
@@ -71,15 +73,16 @@ const Navbar = () => {
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className="">
-                  <Link
+                  <NavLink
                     to={item.path}
                     className="flex mb-8 ml-3 items-center hover:bg-primary w-48 rounded-lg py-2 hover:text-white transition-colors duration-300"
+                    activeClassName="bg-primary text-white"
                   >
                     <div className="pr-2 pl-3 transform scale-125">
                       {item.icon}
                     </div>
                     <Paragraph>{item.title}</Paragraph>
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
