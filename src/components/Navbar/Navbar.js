@@ -20,15 +20,15 @@ const Navbar = () => {
   };
 
   return (
-    <>
+    <div className="">
       <div
-        className={`bg-gray-900  w-full h-full absolute top-0 ${
+        className={`bg-gray-900  w-full h-full fixed top-0 ${
           Sidebar ? "bg-opacity-60" : "hidden"
         } transition duration-300`}
         onClick={showSidebar}
       />
 
-      <div className={`h-screen w-16 shadow-primary rounded-r-lg`}>
+      <div className={`h-screen w-16 shadow-primary rounded-r-lg fixed`}>
         <div className={`h-screen  transform duration-300`}>
           <ul className="flex flex-col align-middle justify-center">
             <li>
@@ -68,7 +68,7 @@ const Navbar = () => {
         <nav
           className={`${
             Sidebar ? "left-0 duration-500" : "-left-full duration-700"
-          } bg-white absolute top-0 transform h-screen rounded-r-lg`}
+          } bg-white fixed top-0 transform h-screen rounded-r-lg`}
           onClick={showSidebar}
         >
           <ul onClick={showSidebar}>
@@ -114,7 +114,7 @@ const Navbar = () => {
         <LoginPage LoginModal={LoginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
         <SignUpPage RegisterModal={RegisterModal} setRegisterModal={setRegisterModal} setLoginModal={setLoginModal} />
       </div>
-    </>
+    </div>
   );
 };
 

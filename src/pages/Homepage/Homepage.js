@@ -2,7 +2,7 @@ import React from "react";
 
 const Homepage = () => {
   return (
-    <div className="pl-7 pt-5">
+    <div className="pl-24 pt-5">
       <h1 className="">ini homepage</h1>
     </div>
   );
