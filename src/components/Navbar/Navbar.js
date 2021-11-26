@@ -5,11 +5,19 @@ import ActiveLogo from "../../assets/nav-logo-active.png";
 import { SidebarData } from "./SidebarData";
 import Paragraph from "../Paragraph/Paragraph";
 import Profile from "../../assets/sidebar/profile.svg";
+import LoginPage from "../../pages/LoginPage/LoginPage";
+import SignUpPage from "../../pages/SignUpPage/SignUpPage";
 
 const Navbar = () => {
   const [Sidebar, setSidebar] = useState(false);
+  const [LoginModal, setLoginModal] = useState(false);
+  const [RegisterModal, setRegisterModal] = useState(false);
 
   const showSidebar = () => setSidebar(!Sidebar);
+
+  const openLoginModal = () => {
+    setLoginModal((prev) => !prev);
+  };
 
   return (
     <>
@@ -27,7 +35,7 @@ const Navbar = () => {
               <img
                 src={Logo}
                 alt="logo"
-                className="object-none mb-16 transform scale-90"
+                className="object-none mb-16 transform scale-90 cursor-pointer"
                 onClick={showSidebar}
               />
             </li>
@@ -45,8 +53,11 @@ const Navbar = () => {
                 </NavLink>
               );
             })}
-            <li className="flex mt-36 items-center pl-3">
-              <Link to="/userprofile">
+            <li
+              className="flex mt-36 items-center pl-3"
+              onClick={openLoginModal}
+            >
+              <Link to="#">
                 <img src={Profile} alt="" className="pr-2 transform scale-75" />
               </Link>
             </li>
@@ -87,13 +98,21 @@ const Navbar = () => {
               );
             })}
             <li>
-              <Link to="/userprofile" className="flex mt-40 items-center pl-3">
+              <Link
+                to="#"
+                className="flex mt-40 items-center pl-3"
+                onClick={openLoginModal}
+              >
                 <img src={Profile} alt="" className="pr-2 transform scale-75" />
                 <Paragraph>Login</Paragraph>
               </Link>
             </li>
           </ul>
         </nav>
+
+        {/* modals */}
+        <LoginPage LoginModal={LoginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
+        <SignUpPage RegisterModal={RegisterModal} setRegisterModal={setRegisterModal} setLoginModal={setLoginModal} />
       </div>
     </>
   );

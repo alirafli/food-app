@@ -1,0 +1,16 @@
+.input {
+  @apply text-ternary
+  rounded-full
+  text-lg
+  font-semibold
+  ring-1
+  outline-none
+  ring-ternary
+  focus:ring-ternary2
+  pl-2 py-1;
+}
+
+.label {
+  @apply font-semibold 
+  text-gray-700;
+}

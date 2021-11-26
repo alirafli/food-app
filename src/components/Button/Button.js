@@ -1,5 +1,6 @@
 import React from "react";
 import { ImArrowRight } from "react-icons/im";
+import "./Button.css";
 
 const Button = ({
   text = "kosong",
@@ -23,12 +24,10 @@ const Button = ({
   return (
     <button
       className={`
-        ${secondary ? "border-4 border-gray-800 text-gray-800 hover:border-black hover:text-black py-1 px-6"
-          : `${ternary ? "bg-ternary hover:bg-ternary2 text-white"
-              : "bg-primary hover:bg-yellow-400 py-3 px-5"}` }
+        ${secondary ? "secondary" : `${ternary ? "ternary" : "primary"}`}
         ${bold && "font-semibold"}
         ${fullWidht && "w-full"}
-        flex items-center justify-between shadow-xl rounded-full transition md:text-lg text-sm`}
+        default`}
       onClick={onClick}
     >
       {text} {arrowIcon()}
