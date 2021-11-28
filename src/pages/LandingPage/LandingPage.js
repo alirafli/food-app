@@ -1,18 +1,20 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import Jumbotron from "../../assets/jumbotron-landingpage.png";
 import Logo from "../../assets/mini-logo.png";
 import LoginPage from "../LoginPage/LoginPage";
 import { Link } from "react-router-dom";
+import SignUpPage from "../SignUpPage/SignUpPage";
 
 const LandingPage = () => {
   const [LoginModal, setLoginModal] = useState(false);
+  const [RegisterModal, setRegisterModal] = useState(false);
 
   const openLoginModal = () => {
     setLoginModal((prev) => !prev);
   };
-  
+
   return (
     <div className="px-3">
       <div className="box bg-primary w-3/12 h-full absolute -z-1 right-0 md:w-full md:h-72 sm:w-full sm:h-48"></div>
@@ -39,10 +41,12 @@ const LandingPage = () => {
         </div>
       </div>
       {/* modals */}
-      <LoginPage
-          LoginModal={LoginModal}
-          setLoginModal={setLoginModal}
-         />
+      <LoginPage LoginModal={LoginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
+      <SignUpPage
+        RegisterModal={RegisterModal}
+        setRegisterModal={setRegisterModal}
+        setLoginModal={setLoginModal}
+      />
     </div>
   );
 };

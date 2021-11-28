@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import Paragraph from "../../components/Paragraph/Paragraph";
 import * as Icon from "react-icons/cg";
 import TextInput from "../../components/TextInput/TextInput";
+import BaseUrl from "../../api/BaseURL";
+import { useAuth } from "../../config/Auth";
 
 const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const { setAuthTokens } = useAuth();
+
+  const handleUserSignup = async (e) => {
+    e.preventDefault();
+    await BaseUrl.post("/user/register", {
+      name: Name,
+      email: Email,
+      password: Password,
+    }).then((res) => {
+      console.log(res);
+      // res.status === 201 && setAuthTokens(res.data.data.token);
+    });
+  };
+
   return (
     <>
       {RegisterModal ? (
@@ -29,13 +48,14 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
               </div>
               <div className="border-b border-gray-500 mt-4 mb-3"></div>
 
-              <form className="">
+              <form className="" onSubmit={handleUserSignup}>
                 <TextInput
                   label="Full Name"
                   name="fullName"
                   type="text"
                   full
                   marbott
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <TextInput
                   label="Email"
@@ -43,6 +63,7 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
                   type="email"
                   full
                   marbott
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextInput
                   label="Password"
@@ -50,10 +71,11 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
                   type="password"
                   full
                   marbott
+                  onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <Button ternary bold text="Sign Up" fullWidht />
-                <Paragraph bold className="mt-3">
+                <Button ternary bold text="Sign Up" fullWidht type="submit" />
+                <Paragraph  className="mt-3">
                   Have an Account?
                 </Paragraph>
                 <Paragraph

@@ -47,7 +47,7 @@ const LoginPage = ({ LoginModal, setLoginModal, setRegisterModal }) => {
                 />
 
                 <Button ternary bold text="Login" fullWidht />
-                <Paragraph bold className="mt-3">
+                <Paragraph  className="mt-3">
                   Don't have an account yet?
                 </Paragraph>
                 <Paragraph

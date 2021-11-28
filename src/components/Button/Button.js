@@ -10,6 +10,7 @@ const Button = ({
   arrow = false,
   fullWidht = false,
   onClick,
+  ...otherprops
 }) => {
   const arrowIcon = () => {
     if (arrow === true) {
@@ -29,6 +30,7 @@ const Button = ({
         ${fullWidht && "w-full"}
         default`}
       onClick={onClick}
+      {...otherprops}
     >
       {text} {arrowIcon()}
     </button>
