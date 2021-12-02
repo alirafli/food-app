@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import Paragraph from "../../components/Paragraph/Paragraph";
 import * as Icon from "react-icons/cg";
 import TextInput from "../../components/TextInput/TextInput";
+import { useAuth } from "../../config/Auth";
+import BaseURL from "../../api/BaseURL";
+import { useHistory } from "react-router-dom";
 
 const LoginPage = ({ LoginModal, setLoginModal, setRegisterModal }) => {
+  const [payload, setPayload] = useState({
+    email: "",
+    password: "",
+  });
+  const { setAuthTokens } = useAuth();
+  let history = useHistory();
+
+  const handleUserLogin = async (e) => {
+    e.preventDefault();
+    const res = await BaseURL.post("/login", {
+      email: payload.email,
+      password: payload.password,
+    });
+    if (res.status === 200) {
+      setAuthTokens(res.data);
+      setLoginModal((prev) => !prev);
+      history.push("/homepage");
+      // console.log(res.data);
+    }
+  };
   return (
     <>
       {LoginModal ? (
@@ -29,13 +52,16 @@ const LoginPage = ({ LoginModal, setLoginModal, setRegisterModal }) => {
               </div>
               <div className="border-b border-gray-500 mt-4 mb-3"></div>
 
-              <form className="">
+              <form onSubmit={handleUserLogin}>
                 <TextInput
                   label="Email"
                   name="email"
                   type="email"
                   full
                   marbott
+                  onChange={(e) =>
+                    setPayload({ ...payload, email: e.target.value })
+                  }
                 />
                 <TextInput
                   label="Password"
@@ -44,10 +70,13 @@ const LoginPage = ({ LoginModal, setLoginModal, setRegisterModal }) => {
                   full
                   eyeIcon
                   marbott
+                  onChange={(e) =>
+                    setPayload({ ...payload, password: e.target.value })
+                  }
                 />
 
                 <Button ternary bold text="Login" fullWidht />
-                <Paragraph  className="mt-3">
+                <Paragraph className="mt-3">
                   Don't have an account yet?
                 </Paragraph>
                 <Paragraph

@@ -24,7 +24,7 @@ export const SidebarData = [
   },
   {
     title: 'Settings',
-    path: '/maintenance',
+    path: '/editprofile',
     icon: <AiIcons.AiOutlineSetting />,
     isActive: false
   },

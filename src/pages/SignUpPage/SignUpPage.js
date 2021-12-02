@@ -7,20 +7,24 @@ import BaseUrl from "../../api/BaseURL";
 import { useAuth } from "../../config/Auth";
 
 const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
-  const [Name, setName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [payload, setPayload] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+  });
   const { setAuthTokens } = useAuth();
 
   const handleUserSignup = async (e) => {
     e.preventDefault();
-    await BaseUrl.post("/user/register", {
-      name: Name,
-      email: Email,
-      password: Password,
+    await BaseUrl.post("/register", {
+      name: payload.fullname,
+      email: payload.email,
+      password: payload.password,
     }).then((res) => {
       console.log(res);
-      // res.status === 201 && setAuthTokens(res.data.data.token);
+      res.status === 201 && setAuthTokens(res.data.data.token);
+      alert("Berhasil mendaftar!");
+      setRegisterModal((prev) => !prev);
     });
   };
 
@@ -55,7 +59,9 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
                   type="text"
                   full
                   marbott
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) =>
+                    setPayload({ ...payload, fullname: e.target.value })
+                  }
                 />
                 <TextInput
                   label="Email"
@@ -63,7 +69,9 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
                   type="email"
                   full
                   marbott
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setPayload({ ...payload, email: e.target.value })
+                  }
                 />
                 <TextInput
                   label="Password"
@@ -71,13 +79,13 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
                   type="password"
                   full
                   marbott
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) =>
+                    setPayload({ ...payload, password: e.target.value })
+                  }
                 />
 
                 <Button ternary bold text="Sign Up" fullWidht type="submit" />
-                <Paragraph  className="mt-3">
-                  Have an Account?
-                </Paragraph>
+                <Paragraph className="mt-3">Have an Account?</Paragraph>
                 <Paragraph
                   header
                   className="text-ternary cursor-pointer w-max"

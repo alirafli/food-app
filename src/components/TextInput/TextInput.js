@@ -9,6 +9,7 @@ const TextInput = ({
   handleChange,
   eyeIcon = false,
   type = "text",
+  add = false,
   ...otherProps
 }) => {
   const [isVisible, setisVisible] = useState(false);
@@ -18,7 +19,9 @@ const TextInput = ({
       <label className="label">{label}</label> <br />
       <div className="relative">
         <div
-          className={`${eyeIcon ? "" : "hidden"} absolute top-3 left-72 lg:hidden md:hidden sm:hidden`}
+          className={`${
+            eyeIcon ? "" : "hidden"
+          } absolute top-3 left-72 lg:hidden md:hidden sm:hidden`}
           onClick={() => setisVisible(!isVisible)}
         >
           <AiIcons.BsFillEyeFill className={`${isVisible ? "" : "hidden"}`} />
@@ -27,9 +30,9 @@ const TextInput = ({
           />
         </div>
         <input
-          className={`input ${full ? "w-full" : ""} mt-1`}
+          className={`${add ? "add" : "input"} ${full ? "w-full" : ""} mt-1 `}
           onChange={handleChange}
-          type = {eyeIcon ? (isVisible ? "text" : "password") : type}
+          type={eyeIcon ? (isVisible ? "text" : "password") : type}
           {...otherProps}
         />
       </div>

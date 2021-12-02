@@ -7,6 +7,7 @@ const Button = ({
   bold = false,
   secondary = false,
   ternary = false,
+  quartet = false,
   arrow = false,
   fullWidht = false,
   onClick,
@@ -25,7 +26,7 @@ const Button = ({
   return (
     <button
       className={`
-        ${secondary ? "secondary" : `${ternary ? "ternary" : "primary"}`}
+        ${secondary ? "secondary" : `${ternary ? "ternary" : `${quartet? "quartet" : "primary"}`}`}
         ${bold && "font-semibold"}
         ${fullWidht && "w-full"}
         default`}

@@ -14,3 +14,15 @@
   @apply font-semibold 
   text-gray-700;
 }
+
+.add {
+  @apply text-ternary
+  rounded-2xl
+  text-lg
+  font-semibold
+  ring-2
+  outline-none
+  ring-primary
+  focus:ring-yellow-500
+  pl-2 py-1;
+}

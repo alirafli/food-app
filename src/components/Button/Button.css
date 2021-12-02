@@ -32,3 +32,13 @@
   py-3 px-5
   hover:bg-ternary2;
 }
+
+.quartet {
+  @apply border-4 
+  border-ternary
+  text-ternary
+  py-1 px-6
+  mx-2
+  hover:border-ternary2
+  hover:text-ternary2;
+}

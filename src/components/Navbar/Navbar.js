@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/nav-logo.png";
 import ActiveLogo from "../../assets/nav-logo-active.png";
@@ -7,11 +7,17 @@ import Paragraph from "../Paragraph/Paragraph";
 import Profile from "../../assets/sidebar/profile.svg";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SignUpPage from "../../pages/SignUpPage/SignUpPage";
+import { useAuth } from "../../config/Auth";
+import BaseURL from "../../api/BaseURL";
+import Button from "../Button/Button";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn }) => {
   const [Sidebar, setSidebar] = useState(false);
   const [LoginModal, setLoginModal] = useState(false);
   const [RegisterModal, setRegisterModal] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const { authTokens } = useAuth();
+  const { setAuthTokens } = useAuth();
 
   const showSidebar = () => setSidebar(!Sidebar);
 
@@ -19,8 +25,27 @@ const Navbar = () => {
     setLoginModal((prev) => !prev);
   };
 
+  const Logout = () => {
+    setAuthTokens();
+    localStorage.clear();
+  };
+
+  useEffect(() => {
+    const fetchUserData = () => {
+      BaseURL.get("/me", {
+        headers: { Authorization: `Bearer ${authTokens.access_token}` },
+      }).then((res) => {
+        console.log(authTokens.access_token);
+        setUserData(res.data);
+        setLoginModal(false);
+        setRegisterModal(false);
+      });
+    };
+    authTokens && fetchUserData();
+  }, [authTokens]);
+
   return (
-    <div className="">
+    <div className="relative z-1">
       <div
         className={`bg-gray-900  w-full h-full fixed top-0 ${
           Sidebar ? "bg-opacity-60" : "hidden"
@@ -28,7 +53,9 @@ const Navbar = () => {
         onClick={showSidebar}
       />
 
-      <div className={`h-screen w-16 shadow-primary rounded-r-lg fixed`}>
+      <div
+        className={`h-screen w-16 shadow-primary rounded-r-lg fixed bg-white`}
+      >
         <div className={`h-screen  transform duration-300`}>
           <ul className="flex flex-col align-middle justify-center">
             <li>
@@ -39,7 +66,9 @@ const Navbar = () => {
                 onClick={showSidebar}
               />
             </li>
-            {SidebarData.map((item, index) => {
+            {SidebarData.filter((item) =>
+              isLoggedIn ? item.isActive || !item.isActive : item.isActive
+            ).map((item, index) => {
               return (
                 <NavLink
                   to={item.path}
@@ -53,14 +82,30 @@ const Navbar = () => {
                 </NavLink>
               );
             })}
-            <li
-              className="flex mt-36 items-center pl-3"
-              onClick={openLoginModal}
-            >
-              <Link to="#">
-                <img src={Profile} alt="" className="pr-2 transform scale-75" />
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <li className="mt-32">
+                <Link to="/userprofile">
+                  <img
+                    src={`https://avatars.dicebear.com/api/adventurer/:${userData.name}.svg`}
+                    alt="profile"
+                    className="transform scale-50 bg-gray-300 rounded-full"
+                  />
+                </Link>
+              </li>
+            ) : (
+              <li
+                className="flex mt-36 items-center pl-3"
+                onClick={openLoginModal}
+              >
+                <Link to="#">
+                  <img
+                    src={Profile}
+                    alt=""
+                    className="pr-2 transform scale-75"
+                  />
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -81,7 +126,9 @@ const Navbar = () => {
                 />
               </Link>
             </li>
-            {SidebarData.map((item, index) => {
+            {SidebarData.filter((item) =>
+              isLoggedIn ? item.isActive || !item.isActive : item.isActive
+            ).map((item, index) => {
               return (
                 <li key={index} className="">
                   <NavLink
@@ -97,22 +144,59 @@ const Navbar = () => {
                 </li>
               );
             })}
-            <li>
-              <Link
-                to="#"
-                className="flex mt-40 items-center pl-3"
-                onClick={openLoginModal}
-              >
-                <img src={Profile} alt="" className="pr-2 transform scale-75" />
-                <Paragraph>Login</Paragraph>
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <>
+                <li>
+                  <Link
+                    to="/userprofile"
+                    className="flex items-center mt-40 w-max"
+                  >
+                    <img
+                      src={`https://avatars.dicebear.com/api/adventurer/:${userData.name}.svg`}
+                      alt="profile"
+                      className="mr-4 transform scale-75 bg-gray-300 rounded-full w-12 h-12"
+                    />
+                    <Paragraph className="whitespace-nowrap">
+                      {userData.name}
+                    </Paragraph>
+                  </Link>
+                </li>
+                <li className="flex justify-center">
+                  <Link onClick={Logout} to="/">
+                    <Button text="Log Out" />
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link
+                  to="#"
+                  className="flex mt-40 items-center pl-3"
+                  onClick={openLoginModal}
+                >
+                  <img
+                    src={Profile}
+                    alt=""
+                    className="pr-2 transform scale-75"
+                  />
+                  <Paragraph>Login</Paragraph>
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
 
         {/* modals */}
-        <LoginPage LoginModal={LoginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
-        <SignUpPage RegisterModal={RegisterModal} setRegisterModal={setRegisterModal} setLoginModal={setLoginModal} />
+        <LoginPage
+          LoginModal={LoginModal}
+          setLoginModal={setLoginModal}
+          setRegisterModal={setRegisterModal}
+        />
+        <SignUpPage
+          RegisterModal={RegisterModal}
+          setRegisterModal={setRegisterModal}
+          setLoginModal={setLoginModal}
+        />
       </div>
     </div>
   );
