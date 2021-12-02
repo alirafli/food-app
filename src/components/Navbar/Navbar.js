@@ -35,7 +35,7 @@ const Navbar = ({ isLoggedIn }) => {
       BaseURL.get("/me", {
         headers: { Authorization: `Bearer ${authTokens.access_token}` },
       }).then((res) => {
-        console.log(authTokens.access_token);
+        // console.log(authTokens.access_token);
         setUserData(res.data);
         setLoginModal(false);
         setRegisterModal(false);
