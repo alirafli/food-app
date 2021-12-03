@@ -12,6 +12,8 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import LikePage from "./pages/LikePage/LikePage";
 import AddResep from "./pages/AddResep/AddResep";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import EditResep from "./pages/EditResep/EditResep"
+import ResepDetail from "./pages/ResepDetail/ResepDetail";
 
 const App = () => {
   const existingToken = JSON.parse(localStorage.getItem("tokens"));
@@ -21,7 +23,7 @@ const App = () => {
     localStorage.setItem("tokens", JSON.stringify(data));
     setAuthTokens(data);
   };
-  
+
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
@@ -49,6 +51,12 @@ const App = () => {
                 <Maintenance />
               </div>
             </Route>
+            <Route path="/editResep/:id">
+              <div className="flex">
+                <Navbar isLoggedIn={!authTokens ? false : true} />
+                <EditResep />
+              </div>
+            </Route>
             <Route path="/userprofile">
               <div className="flex">
                 <Navbar isLoggedIn={!authTokens ? false : true} />
@@ -59,6 +67,12 @@ const App = () => {
               <div className="flex">
                 <Navbar isLoggedIn={!authTokens ? false : true} />
                 <EditProfile />
+              </div>
+            </Route>
+            <Route path="/resep/:id">
+              <div className="flex">
+                <Navbar isLoggedIn={!authTokens ? false : true} />
+                <ResepDetail />
               </div>
             </Route>
             <Route path="/addresep">

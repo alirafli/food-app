@@ -94,7 +94,7 @@ const Navbar = ({ isLoggedIn }) => {
               </li>
             ) : (
               <li
-                className="flex mt-36 items-center pl-3"
+                className="flex mt-96 items-center pl-3"
                 onClick={openLoginModal}
               >
                 <Link to="#">
@@ -171,7 +171,7 @@ const Navbar = ({ isLoggedIn }) => {
               <li>
                 <Link
                   to="#"
-                  className="flex mt-40 items-center pl-3"
+                  className="flex mt-96 items-center pl-3"
                   onClick={openLoginModal}
                 >
                   <img

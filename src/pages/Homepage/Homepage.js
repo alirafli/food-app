@@ -3,7 +3,6 @@ import Title from "../../components/Title/Title";
 import Jumbotron from "../../assets/homepage/jumbotron.png";
 import Card from "../../components/Card/Card";
 import BaseURL from "../../api/BaseURL";
-import Paragraph from "../../components/Paragraph/Paragraph";
 import Button from "../../components/Button/Button";
 
 const Homepage = () => {
@@ -18,15 +17,14 @@ const Homepage = () => {
     }
   };
 
-  const fetchRecipes = async () => {
-    await BaseURL.get(`/recipe?page=${Page}`).then((res) => {
-      console.log(res.data);
-      res.status === 200 && setRecipes(res.data.recipes);
-      res.status === 200 && setPages(res.data.pagination.totalPage);
-    });
-  };
-
   useEffect(() => {
+    const fetchRecipes = async () => {
+      await BaseURL.get(`/recipe?page=${Page}`).then((res) => {
+        console.log(res.data);
+        res.status === 200 && setRecipes(res.data.recipes);
+        res.status === 200 && setPages(res.data.pagination.totalPage);
+      });
+    };
     fetchRecipes();
   }, [Page]);
 
@@ -46,15 +44,21 @@ const Homepage = () => {
               time={item.updated_at}
               user={item.user}
               cardId={item.id}
+              view = {item.views}
             />
           );
         })}
       </div>
       <div className="flex mt-10 justify-center">
         {printPage()}
-        {loop.map((data) => {
+        {loop.map((data, index) => {
           return (
-            <Button text={`${data}`} onClick={() => setPage(data)} quartet />
+            <Button
+              key={index}
+              text={`${data}`}
+              onClick={() => setPage(data)}
+              quartet
+            />
           );
         })}
       </div>

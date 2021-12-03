@@ -17,12 +17,19 @@ const AddResep = () => {
   });
 
   const history = useHistory();
+  const StepsData = [];
 
-  const checkData = () => {
-    console.log(payload);
-    console.log(Steps);
-    console.log(authTokens.access_token);
+  const fetctSteps = () => {
+    Steps.map((data) => {
+      return StepsData.push(data.content);
+    });
   };
+
+  // const checkData = () => {
+  //   console.log(payload);
+  //   console.log(Steps);
+  //   // console.log(authTokens.access_token);
+  // };
 
   const { authTokens } = useAuth();
 
@@ -43,7 +50,7 @@ const AddResep = () => {
         title: payload.title,
         img_id: payload.img_id,
         description: payload.description,
-        steps: Steps,
+        steps: StepsData,
       },
       {
         headers: { Authorization: `Bearer ${authTokens.access_token}` },
@@ -167,12 +174,11 @@ const AddResep = () => {
               quartet
               text="Submit"
               onClick={() => {
-                checkData();
+                fetctSteps();
+                // checkData();
                 sendResep();
               }}
-            >
-              submit
-            </Button>
+            />
           </form>
         </div>
       </div>
