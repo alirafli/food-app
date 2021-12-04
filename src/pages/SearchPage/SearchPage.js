@@ -19,7 +19,7 @@ const SearchPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full mb-10">
       <Jumbotron form handleChange={(e) => setSearch(e.target.value)}>Search</Jumbotron>
       <div className="pl-24 pt-5">
         <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-7">

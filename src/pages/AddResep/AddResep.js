@@ -105,7 +105,7 @@ const AddResep = () => {
                 setPayload({ ...payload, title: e.target.value })
               }
             />
-            <h1 className="font-bold">Description</h1>
+            <h1 className="font-semibold text-gray-700">Description</h1>
             <textarea
               name="content"
               cols="40"

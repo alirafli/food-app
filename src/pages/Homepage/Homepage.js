@@ -20,7 +20,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       await BaseURL.get(`/recipe?page=${Page}`).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         res.status === 200 && setRecipes(res.data.recipes);
         res.status === 200 && setPages(res.data.pagination.totalPage);
       });

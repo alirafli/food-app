@@ -13,7 +13,7 @@ const AddResep = (props) => {
   const [PrePayload, setPrePayload] = useState({});
   const [Steps, setSteps] = useState([]);
   const [payload, setPayload] = useState({
-    title: "",
+    title: "fetch data...",
     img_id:
       "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574",
     description: "",
@@ -61,19 +61,26 @@ const AddResep = (props) => {
         headers: { Authorization: `Bearer ${authTokens.access_token}` },
       }
     ).then(() => {
-      alert("data berhasil diubah!");
       history.push("/homepage");
-    });
+    }).catch((e) => console.log(e) );
   };
 
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
       await BaseURL.get(`/recipe/${resepId}`).then((res) => {
-        // console.log(res.data.recipe);
         if (res.status === 200) {
+          const resep = res.data.recipe;
+          const Steps = res.data.steps;
+          // console.log(resep);
           setPrePayload(res.data.recipe);
           setPreSteps(res.data.steps);
+          setPayload({
+            img_id: `${resep.img_id}`,
+            title: `${resep.title}`,
+            description: `${resep.description}`,
+          });
+          setSteps(Steps);
         }
       });
     };
@@ -98,7 +105,7 @@ const AddResep = (props) => {
         }
 
         return {
-          ...item,
+
           [event.target.name]: event.target.value,
         };
       });
@@ -120,7 +127,7 @@ const AddResep = (props) => {
             </Paragraph>
             <div className="w-full p-6 shadow-2xl rounded-3xl mb-10">
               {/* {JSON.stringify(Form)} */}
-              <form action="">
+              
                 <TextInput
                   name="title"
                   label="Title"
@@ -129,6 +136,7 @@ const AddResep = (props) => {
                   add
                   marbott
                   full
+                  value={`${payload.title}`}
                   handleChange={(e) =>
                     setPayload({ ...payload, title: e.target.value })
                   }
@@ -139,6 +147,7 @@ const AddResep = (props) => {
                   cols="40"
                   rows="5"
                   placeholder={`${PrePayload.description}`}
+                  value={`${payload.description}`}
                   className="text-ternary font-semibold ring-2 ring-primary focus:ring-yellow-500 outline-none mb-5 w-full"
                   onChange={(e) =>
                     setPayload({ ...payload, description: e.target.value })
@@ -164,10 +173,10 @@ const AddResep = (props) => {
                           ? "type here..."
                           : `${PreSteps[index].description}`
                       }`}
-                      value={item.content}
+                      value={item.description}
                       className="text-ternary font-semibold ring-2 ring-primary focus:ring-yellow-500 outline-none w-4/5"
                       cols="25"
-                      onChange={(e) => onChange(index, e)}
+                      onChange={(e) => {onChange(index, e)}}
                       rows="3"
                     />
                     <div className="flex mb-5 justify-end -mt-10">
@@ -194,6 +203,7 @@ const AddResep = (props) => {
                   add
                   marbott
                   full
+                  value={`${payload.img_id}`}
                   handleChange={(e) =>
                     setPayload({ ...payload, img_id: e.target.value })
                   }
@@ -211,15 +221,15 @@ const AddResep = (props) => {
                     sendResep();
                   }}
                 />
-              </form>
-              <h1
+            
+              {/* <h1
                 onClick={() => {
                   fetctSteps();
                   checkData();
                 }}
               >
                 check data
-              </h1>
+              </h1> */}
             </div>
           </div>
         </div>

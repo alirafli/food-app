@@ -13,6 +13,7 @@ const Card = ({
   canEdit = false,
   cardId,
   view,
+  liked
 }) => {
   const { authTokens } = useAuth();
   const history = useHistory();
@@ -58,8 +59,9 @@ const Card = ({
           {title}
         </Paragraph>
         {canEdit ? (
-          <div>
-            <Paragraph small>like</Paragraph>
+          <div className="mb-3">
+            <Paragraph small>edited: {time}</Paragraph>
+            <Paragraph small>view: {view}</Paragraph>
           </div>
         ) : (
           <div>

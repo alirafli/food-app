@@ -5,6 +5,7 @@ import * as Icon from "react-icons/cg";
 import TextInput from "../../components/TextInput/TextInput";
 import BaseUrl from "../../api/BaseURL";
 import { useAuth } from "../../config/Auth";
+import { useHistory } from "react-router-dom";
 
 const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
   const [payload, setPayload] = useState({
@@ -13,6 +14,7 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
     password: "",
   });
   const { setAuthTokens } = useAuth();
+  let history = useHistory();
 
   const handleUserSignup = async (e) => {
     e.preventDefault();
@@ -21,10 +23,17 @@ const SignUpPage = ({ RegisterModal, setRegisterModal, setLoginModal }) => {
       email: payload.email,
       password: payload.password,
     }).then((res) => {
-      console.log(res);
-      res.status === 201 && setAuthTokens(res.data.data.token);
-      alert("Berhasil mendaftar!");
+      // console.log(res);
+      // res.status === 201 && setAuthTokens(res.data.data.token);
       setRegisterModal((prev) => !prev);
+    });
+
+    await BaseUrl.post("/login", {
+      email: payload.email,
+      password: payload.password,
+    }).then((res) => {
+      setAuthTokens(res.data);
+      res.status === 200 && history.push("/homepage");
     });
   };
 
