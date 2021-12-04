@@ -30,7 +30,7 @@ const TextInput = ({
           />
         </div>
         <input
-          className={`${add ? "add" : "input"} ${full ? "w-full" : ""} mt-1 `}
+          className={`${add ? "add" : "input"} ${full ? "w-full" : ""} mt-1 pl-4 `}
           onChange={handleChange}
           type={eyeIcon ? (isVisible ? "text" : "password") : type}
           {...otherProps}

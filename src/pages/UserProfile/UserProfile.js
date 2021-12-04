@@ -30,7 +30,7 @@ const UserProfile = () => {
     fetchRecipes();
   }, [authTokens]);
   return (
-    <div className="pl-24 pt-5 w-full">
+    <div className="pl-24 pt-5 w-full pb-20">
       <div className="mb-10 w-full">
         {/* <Paragraph jumbo>{userData.name}</Paragraph>
         <Paragraph h1>{count} posted recipe(s)</Paragraph> */}
