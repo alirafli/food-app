@@ -31,6 +31,7 @@ const SearchPage = () => {
                 image={item.img_id}
                 time={item.updated_at}
                 user={item.user}
+                cardId={item.id}
               />
             );
           })}
